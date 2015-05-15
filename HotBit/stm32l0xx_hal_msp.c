@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * File Name          : stm32l0xx_hal_msp.c
-  * Date               : 14/05/2015 13:32:09
+  * Date               : 16/05/2015 00:05:43
   * Description        : This file provides code for the MSP Initialization 
   *                      and de-Initialization codes.
   ******************************************************************************
@@ -163,6 +163,15 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   }
+  else if(htim_base->Instance==TIM6)
+  {
+    /* Peripheral clock enable */
+    __TIM6_CLK_ENABLE();
+
+    /* Peripheral interrupt init*/
+    HAL_NVIC_SetPriority(TIM6_DAC_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(TIM6_DAC_IRQn);
+  }
 
 }
 
@@ -179,6 +188,14 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_2);
 
+  }
+  else if(htim_base->Instance==TIM6)
+  {
+    /* Peripheral clock disable */
+    __TIM6_CLK_DISABLE();
+
+    /* Peripheral interrupt Deinit*/
+    HAL_NVIC_DisableIRQ(TIM6_DAC_IRQn);
   }
 
 }

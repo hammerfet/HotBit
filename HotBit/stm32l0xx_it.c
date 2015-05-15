@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file    stm32l0xx_it.c
-  * @date    14/05/2015 13:32:06
+  * @date    16/05/2015 00:05:43
   * @brief   Interrupt Service Routines.
   ******************************************************************************
   *
@@ -40,10 +40,30 @@
 
 extern ADC_HandleTypeDef hadc;
 extern SPI_HandleTypeDef hspi1;
+extern TIM_HandleTypeDef htim6;
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
 /******************************************************************************/
+
+/**
+* @brief This function handles TIM6 global interrupt and DAC underrun error interrupts.
+*/
+void TIM6_DAC_IRQHandler(void)
+{
+  HAL_NVIC_ClearPendingIRQ(TIM6_DAC_IRQn);
+  HAL_TIM_IRQHandler(&htim6);
+}
+
+/**
+* @brief This function handles EXTI Line 4 to 15 interrupt.
+*/
+void EXTI4_15_IRQHandler(void)
+{
+  HAL_NVIC_ClearPendingIRQ(EXTI4_15_IRQn);
+  
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
+}
 
 /**
 * @brief This function handles System tick timer.
@@ -70,6 +90,16 @@ void SPI1_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(SPI1_IRQn);
   HAL_SPI_IRQHandler(&hspi1);
+}
+
+/**
+* @brief This function handles EXTI Line 0 and Line 1 interrupt.
+*/
+void EXTI0_1_IRQHandler(void)
+{
+  HAL_NVIC_ClearPendingIRQ(EXTI0_1_IRQn);
+  
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

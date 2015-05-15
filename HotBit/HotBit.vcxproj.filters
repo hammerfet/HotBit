@@ -25,6 +25,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="stm32l0xx_hal_msp.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="stm32l0xx_it.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32L0xxxx\CMSIS\Device\ST\STM32L0xx\Source\Templates\system_stm32l0xx.c">
       <Filter>Source files\Device-specific files</Filter>
     </ClCompile>
@@ -160,16 +169,13 @@
     <ClCompile Include="..\..\..\..\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32L0xxxx\STM32L0xx_HAL_Driver\Src\stm32l0xx_hal_wwdg.c">
       <Filter>Source files\Device-specific files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32L0xxxx\Startup\startup_stm32l051xx.c">
+    <ClCompile Include="..\..\..\..\AppData\Local\VisualGDB\EmbeddedBSPs\arm-eabi\com.sysprogs.arm.stm32\STM32L0xxxx\Startup\startup_stm32l053xx.c">
       <Filter>Source files\Device-specific files</Filter>
     </ClCompile>
-    <ClCompile Include="main.c">
+    <ClCompile Include="stateMachine.c">
       <Filter>Source files</Filter>
     </ClCompile>
-    <ClCompile Include="stm32l0xx_hal_msp.c">
-      <Filter>Source files</Filter>
-    </ClCompile>
-    <ClCompile Include="stm32l0xx_it.c">
+    <ClCompile Include="leds.c">
       <Filter>Source files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -385,6 +391,12 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="stm32l0xx_it.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="prototypes.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>

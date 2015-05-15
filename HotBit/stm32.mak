@@ -15,7 +15,7 @@ AR := $(TOOLCHAIN_ROOT)/bin/arm-eabi-ar.exe
 OBJCOPY := $(TOOLCHAIN_ROOT)/bin/arm-eabi-objcopy.exe
 
 #Additional flags
-PREPROCESSOR_MACROS += stm32_flash_layout STM32L051K6 STM32L051xx
+PREPROCESSOR_MACROS += stm32_flash_layout STM32L053C8 STM32L053xx
 INCLUDE_DIRS += . $(BSP_ROOT)/STM32L0xxxx/CMSIS/Device/ST/STM32L0xx/Include $(BSP_ROOT)/STM32L0xxxx/CMSIS/Include $(BSP_ROOT)/STM32L0xxxx/CMSIS/RTOS $(BSP_ROOT)/STM32L0xxxx/STM32L0xx_HAL_Driver/Inc
 LIBRARY_DIRS += 
 LIBRARY_NAMES += compactcpp
@@ -26,6 +26,6 @@ LINUX_PACKAGES +=
 CFLAGS += -mcpu=cortex-m0plus -mthumb
 CXXFLAGS += -mcpu=cortex-m0plus -mthumb
 ASFLAGS += -mcpu=cortex-m0plus -mthumb
-LDFLAGS += -mcpu=cortex-m0plus -mthumb -T$(BSP_ROOT)/STM32L0xxxx/LinkerScripts/STM32L051x6_flash.lds  
+LDFLAGS += -mcpu=cortex-m0plus -mthumb -T$(BSP_ROOT)/STM32L0xxxx/LinkerScripts/STM32L053x8_flash.lds  
 COMMONFLAGS += 
 
