@@ -390,13 +390,13 @@
     <ClInclude Include="stm32l0xx_hal_conf.h">
       <Filter>Header files</Filter>
     </ClInclude>
-    <ClInclude Include="stm32l0xx_it.h">
-      <Filter>Header files</Filter>
-    </ClInclude>
     <ClInclude Include="config.h">
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="prototypes.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="stm32l0xx_it.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>

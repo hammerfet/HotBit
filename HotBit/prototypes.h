@@ -1,13 +1,16 @@
 #ifndef __PROTOTYPES_H__
 #define __PROTOTYPES_H__
 
+// Statemachine related
 void stateMachine(void);
-void tempUpPressed(void);
-void tempDnPressed(void);
 
+// Temp regulation related
+void startTipTempMeasurement(void);
+void basicController(uint32_t setpoint);
+
+// LED Related
 void setLED(uint8_t LED);
 void clearLEDs();
-
 
 
 #endif

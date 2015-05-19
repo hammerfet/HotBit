@@ -86,17 +86,20 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM6_Init();
 
-  /* USER CODE BEGIN 2 */
 
-  /* USER CODE END 2 */
+  //HAL_IWDG_Start(&hiwdg);
+  HAL_TIM_Base_Start_IT(&htim6);
+  HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_3);
+  //HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
 
-  /* USER CODE BEGIN 3 */
-  /* Infinite loop */
+  HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
+  while (HAL_ADC_GetState(&hadc) != HAL_ADC_STATE_READY) {  }
+
   while (1)
   {
 	  stateMachine();
+	 // HAL_IWDG_Refresh(&hiwdg);
   }
-  /* USER CODE END 3 */
 
 }
 
@@ -143,10 +146,10 @@ void MX_ADC_Init(void)
   hadc.Init.OversamplingMode = DISABLE;
   hadc.Init.ClockPrescaler = ADC_CLOCKPRESCALER_PCLK_DIV1;
   hadc.Init.Resolution = ADC_RESOLUTION12b;
-  hadc.Init.SamplingTime = ADC_SAMPLETIME_28CYCLES_5;
+  hadc.Init.SamplingTime = ADC_SAMPLETIME_13CYCLES_5;
   hadc.Init.ScanDirection = ADC_SCAN_DIRECTION_UPWARD;
   hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-  hadc.Init.ContinuousConvMode = DISABLE;
+  hadc.Init.ContinuousConvMode = ENABLE;
   hadc.Init.DiscontinuousConvMode = DISABLE;
   hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIG_EDGE_NONE;
   hadc.Init.DMAContinuousRequests = DISABLE;
@@ -154,7 +157,7 @@ void MX_ADC_Init(void)
   hadc.Init.Overrun = OVR_DATA_PRESERVED;
   hadc.Init.LowPowerAutoWait = DISABLE;
   hadc.Init.LowPowerFrequencyMode = DISABLE;
-  hadc.Init.LowPowerAutoOff = ENABLE;
+  hadc.Init.LowPowerAutoOff = DISABLE;
   HAL_ADC_Init(&hadc);
 
     /**Configure for the selected ADC regular channel to be converted. 
@@ -205,7 +208,7 @@ void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 0;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 10000;
+  htim2.Init.Period = 20000;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4;
   HAL_TIM_Base_Init(&htim2);
 
@@ -215,12 +218,12 @@ void MX_TIM2_Init(void)
   HAL_TIM_PWM_Init(&htim2);
 
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 10000;
+  sConfigOC.Pulse = 0;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_3);
 
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig);
 
@@ -233,12 +236,12 @@ void MX_TIM6_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig;
 
   htim6.Instance = TIM6;
-  htim6.Init.Prescaler = 0;
+  htim6.Init.Prescaler = 2000; // Gets us to ~1mS ticks
   htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim6.Init.Period = 0;
+  htim6.Init.Period = 100; // 100mS Period
   HAL_TIM_Base_Init(&htim6);
 
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig);
 

@@ -62,21 +62,15 @@
 
 
 /*------------------------*/
-/*      USEFUL ENUMS      */
+/*  Controller Variables  */
 /*------------------------*/
 
-	typedef enum tiptemp_t
-	{
-		t400_C,
-		t380_C,
-		t360_C,
-		t340_C,
-		t320_C,
-		t300_C,
-		t280_C,
-		t260_C,
-		t240_C
-	} tipTemp;
+	#define AUTOPOWEROFFTIME (10*60)
+
+
+/*------------------------*/
+/*      USEFUL ENUMS      */
+/*------------------------*/
 
 	typedef enum led_t
 	{
@@ -91,5 +85,21 @@
 		LED_9,
 
 	} led;
+
+	typedef enum state_t
+	{
+		SLEEP,
+		IDLE,
+		TEMP1,
+		TEMP2,
+		TEMP3,
+		TEMP4,
+		TEMP5,
+		TEMP6,
+		TEMP7,
+		TEMP8,
+		TEMP9
+
+	} state;
 
 #endif
