@@ -51,6 +51,7 @@
 #define __SA_FBIT__ 15
 #define __SHRT_MAX__ 32767
 #define __LDBL_MAX__ 1.7976931348623157e+308L
+#define STM32L051K6 1
 #define __FRACT_MAX__ 0X7FFFP-15R
 #define __UFRACT_FBIT__ 16
 #define __ARM_FP 12
@@ -108,6 +109,7 @@
 #define __FLT_HAS_DENORM__ 1
 #define __SIZEOF_LONG_DOUBLE__ 8
 #define __BIGGEST_ALIGNMENT__ 8
+#define STM32L051xx 1
 #define __DQ_IBIT__ 0
 #define __DBL_MAX__ double(1.7976931348623157e+308L)
 #define __ULFRACT_IBIT__ 0
@@ -210,7 +212,6 @@
 #define __VFP_FP__ 1
 #define __SIZEOF_PTRDIFF_T__ 4
 #define stm32_flash_layout 1
-#define STM32L053C8 1
 #define __LACCUM_EPSILON__ 0x1P-31LK
 #define __DEC32_SUBNORMAL_MIN__ 0.000001E-95DF
 #define __INT_FAST16_MAX__ 2147483647
@@ -295,7 +296,6 @@
 #define __UHQ_IBIT__ 0
 #define __LLACCUM_IBIT__ 32
 #define __DBL_DECIMAL_DIG__ 17
-#define STM32L053xx 1
 #define __DEC_EVAL_METHOD__ 2
 #define __TA_FBIT__ 63
 #define __UDQ_IBIT__ 0
