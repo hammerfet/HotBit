@@ -82,16 +82,6 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 
 }
 
-void HAL_IWDG_MspInit(IWDG_HandleTypeDef* hiwdg)
-{
-
-}
-
-void HAL_IWDG_MspDeInit(IWDG_HandleTypeDef* hiwdg)
-{
-
-}
-
 void HAL_SPI_MspInit(SPI_HandleTypeDef* hspi)
 {
 

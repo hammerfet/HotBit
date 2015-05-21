@@ -13,7 +13,9 @@ void setLED(uint8_t LED);
 void clearLEDs();
 
 // IMU Related
-void configureIMU(void);
+void startIMU(void);
+void stopIMU(void);
+uint8_t checkForMovement(void);
 
 
 #endif

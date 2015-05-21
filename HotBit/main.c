@@ -39,36 +39,20 @@
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc;
-
-IWDG_HandleTypeDef hiwdg;
-
 SPI_HandleTypeDef hspi1;
-
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim6;
-
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_ADC_Init(void);
-static void MX_IWDG_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_TIM6_Init(void);
 
 int main(void)
 {
-
-  /* USER CODE BEGIN 1 */
-
-  /* USER CODE END 1 */
-
-  /* MCU Configuration----------------------------------------------------------*/
-
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
@@ -81,33 +65,31 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_ADC_Init();
- // MX_IWDG_Init();
   MX_SPI1_Init();
   MX_TIM2_Init();
   MX_TIM6_Init();
 
-
-  //HAL_IWDG_Start(&hiwdg);
+  // Should set up a watchdog here?
   HAL_TIM_Base_Start_IT(&htim6);
   HAL_TIM_OC_Start(&htim2, TIM_CHANNEL_3);
-  //HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN1);
 
-  // Set up the IMU
-  configureIMU();
+  // We need to put NSS high before we start using the SPI bus. It'll be low on powerup
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 
+  // Calibrate the ADC
   HAL_ADCEx_Calibration_Start(&hadc, ADC_SINGLE_ENDED);
   while (HAL_ADC_GetState(&hadc) != HAL_ADC_STATE_READY) {  }
+
 
   while (1)
   {
 	  stateMachine();
-	 // HAL_IWDG_Refresh(&hiwdg);
+	 // Need a watchdog here?
   }
 
 }
 
-/** System Clock Configuration
-*/
+// System Clock Configuration
 void SystemClock_Config(void)
 {
 
@@ -167,17 +149,6 @@ void MX_ADC_Init(void)
     */
   sConfig.Channel = ADC_CHANNEL_1;
   HAL_ADC_ConfigChannel(&hadc, &sConfig);
-
-}
-
-/* IWDG init function */
-void MX_IWDG_Init(void)
-{
-
-  hiwdg.Instance = IWDG;
-  hiwdg.Init.Prescaler = IWDG_PRESCALER_4;
-  hiwdg.Init.Reload = 50;
-  HAL_IWDG_Init(&hiwdg);
 
 }
 

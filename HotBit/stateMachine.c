@@ -19,7 +19,7 @@ TIM_HandleTypeDef htim2;
 ADC_HandleTypeDef hadc;
 
 // Variables used in this file
-state volatile CurrentState = TEMP1;
+state volatile CurrentState = SLEEP;
 state LastTempState = TEMP1;
 uint8_t readyToRunADC = 0;
 
@@ -27,17 +27,7 @@ uint8_t readyToRunADC = 0;
 uint32_t tipTempRawValue = 0;
 uint32_t pwmDriveValue = 0;
 
-uint32_t setPoint[9] = {
-	500,
-	800,
-	1000,
-	1500,
-	2000,
-	2500,
-	3000,
-	3500,
-	4000
-};
+
 
 void stateMachine(void)
 {
@@ -46,77 +36,95 @@ void stateMachine(void)
 		case SLEEP:
 			clearLEDs();
 			_SET_PWM(0);
-			//HAL_PWR_EnterSTANDBYMode();
+			stopIMU();
+			HAL_PWR_EnterSTOPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+			HAL_Delay(5); // Give the clocks a chance to start before enabling IMU
+			startIMU();
 			break;
 
 		case IDLE:
+			clearLEDs();
 			setLED(LED_1);
 			setLED(LED_9);
-			clearLEDs();
 			_SET_PWM(0);
+
+			if (checkForMovement())
+				CurrentState = LastTempState;
+
+			checkForMovement(); // This is just for double buffering
+			
 			break;
 
 		case TEMP1:
 			clearLEDs();
 			LastTempState = TEMP1;
 			setLED(LED_1);			
-			basicController(setPoint[0]);
+			basicController(SET_POINT_1);
+			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
 		case TEMP2:
 			clearLEDs();
 			LastTempState = TEMP2;
 			setLED(LED_2);
-			basicController(setPoint[1]);
+			basicController(SET_POINT_2);
+			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
 		case TEMP3:
 			clearLEDs();
 			LastTempState = TEMP3;
 			setLED(LED_3);
-			basicController(setPoint[2]);
+			basicController(SET_POINT_3);
+			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
 		case TEMP4:
 			clearLEDs();
 			LastTempState = TEMP4;
 			setLED(LED_4);
-			basicController(setPoint[3]);
+			basicController(SET_POINT_4);
+			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
 		case TEMP5:
 			clearLEDs();
 			LastTempState = TEMP5;
 			setLED(LED_5);
-			basicController(setPoint[4]);
+			basicController(SET_POINT_5);
+			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
 		case TEMP6:
 			clearLEDs();
 			LastTempState = TEMP6;
 			setLED(LED_6);
-			basicController(setPoint[5]);
+			basicController(SET_POINT_6);
+			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
 		case TEMP7:
 			clearLEDs();
 			LastTempState = TEMP7;
 			setLED(LED_7);
-			basicController(setPoint[6]);
+			basicController(SET_POINT_7);
+			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
 		case TEMP8:
 			clearLEDs();
 			LastTempState = TEMP8;
 			setLED(LED_8);
-			basicController(setPoint[7]);
+			basicController(SET_POINT_8);
+			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
 		case TEMP9:
 			clearLEDs();
 			LastTempState = TEMP9;
 			setLED(LED_9);
-			basicController(setPoint[8]);
+			basicController(SET_POINT_9);
+			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
 		default:
@@ -126,7 +134,10 @@ void stateMachine(void)
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	if (CurrentState == IDLE || CurrentState == SLEEP)
+	if (CurrentState == SLEEP && (HAL_GPIO_ReadPin(TEMPUP_PORT, TEMPUP_PIN) == GPIO_PIN_RESET))
+		CurrentState = LastTempState; // This is a wakeup from stop mode call
+
+	else if (CurrentState == IDLE)
 		CurrentState = LastTempState;
 
 	else if (HAL_GPIO_ReadPin(TEMPDN_PORT, TEMPDN_PIN) == GPIO_PIN_RESET && _IS_TEMP_STATE && CurrentState != TEMP1)
@@ -165,20 +176,22 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}
 		
 		
-	// ------- Auto power off timer section 
+	// ------- Auto idle and power off timer section 
 
 		// Tick this variable and compare it to the AUTPPOWEROFFTIME defined in config.h
 		autoPowerOffTimerTick++;
 
-		// If equal, we start drop to IDLE if running or SLEEP if idle
-		if (autoPowerOffTimerTick == AUTOPOWEROFFTIME)
+		// If equal to IDLE_TIME, we set the idle state
+		if (autoPowerOffTimerTick == IDLE_TIME && _IS_TEMP_STATE)
 		{
-			if (_IS_TEMP_STATE)
-				CurrentState = IDLE;
+			CurrentState = IDLE;
+			autoPowerOffTimerTick = 0;
+		}
 
-			else if (CurrentState == IDLE)
-				CurrentState = SLEEP;
-			
+		//Or if sleep time, we sleep
+		if (autoPowerOffTimerTick == SLEEP_TIME && (CurrentState == IDLE))
+		{
+			CurrentState = SLEEP;
 			autoPowerOffTimerTick = 0;
 		}
 

@@ -57,25 +57,42 @@
 	#define THERM_PORT		GPIOA
 
 	/* Accelerometer signals */
-	#define ACCELINT_PIN	GPIO_PIN_0
-	#define ACCELINT_PORT	GPIOB
+	//#define ACCELINT_PIN	GPIO_PIN_0
+	//#define ACCELINT_PORT	GPIOB
 
 
 /*------------------------*/
-/*      IMU Variables     */
+/*      IMU VARIABLES     */
 /*------------------------*/
 
-	
+	#define MOTION_THRESHOLD 2000
+
+	#define WHO_AM_I		 0x0F
+	#define CTRL1			 0x20
+	#define CTRL2			 0x21
+	#define ACCEL_START_REG  0x28
+
+	uint8_t IMUExists;
 
 /*------------------------*/
 /*  Controller Variables  */
 /*------------------------*/
 
-	#define AUTOPOWEROFFTIME (10*60)
+	#define IDLE_TIME (10*5)
+	#define SLEEP_TIME (10*10)
 
+	#define SET_POINT_1		500
+	#define SET_POINT_2		800
+	#define SET_POINT_3		1000
+	#define SET_POINT_4		1500
+	#define SET_POINT_5		2000
+	#define SET_POINT_6		2500
+	#define SET_POINT_7		3000
+	#define SET_POINT_8		3500
+	#define SET_POINT_9		4000
 
 /*------------------------*/
-/*      USEFUL ENUMS      */
+/*  USEFUL ENUMS/STRUCTS  */
 /*------------------------*/
 
 	typedef enum led_t
@@ -107,5 +124,11 @@
 		TEMP9
 
 	} state;
+
+	typedef struct
+	{
+		int16_t X, Y, Z;
+
+	} IMUMotion;
 
 #endif
