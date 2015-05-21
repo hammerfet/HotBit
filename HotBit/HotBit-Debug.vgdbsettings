@@ -12,6 +12,7 @@
   <Build xsi:type="com.visualgdb.build.embedded">
     <MakeFilePathRelativeToSourceDir>Makefile</MakeFilePathRelativeToSourceDir>
     <MakeConfigurationName>Debug</MakeConfigurationName>
+    <AdditionalMakeArguments />
     <MakeCommandTemplate>
       <SkipWhenRunningCommandList>false</SkipWhenRunningCommandList>
       <Command>cmd.exe</Command>
@@ -98,7 +99,7 @@
         </KeyValue>
         <KeyValue>
           <Key>com.sysprogs.arm.openocd.commands.halt</Key>
-          <Value />
+          <Value>mon halt</Value>
         </KeyValue>
         <KeyValue>
           <Key>com.sysprogs.arm.openocd.commands.program</Key>

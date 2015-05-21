@@ -12,5 +12,8 @@ void basicController(uint32_t setpoint);
 void setLED(uint8_t LED);
 void clearLEDs();
 
+// IMU Related
+void configureIMU(void);
+
 
 #endif
