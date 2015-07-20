@@ -43,11 +43,11 @@
 	#define LED3_PORT 		GPIOB
 
 	/* Button inputs */
-	#define TEMPUP_PIN		GPIO_PIN_8
-	#define TEMPUP_PORT		GPIOB
+	#define TEMPDN_PIN		GPIO_PIN_8
+	#define TEMPDN_PORT		GPIOB
 	
-	#define TEMPDN_PIN		GPIO_PIN_0
-	#define TEMPDN_PORT 	GPIOA
+	#define TEMPUP_PIN		GPIO_PIN_0
+	#define TEMPUP_PORT 	GPIOA
 
 	/* IO Signals */
 	#define HEATER_PIN		GPIO_PIN_2
@@ -57,8 +57,8 @@
 	#define THERM_PORT		GPIOA
 
 	/* Accelerometer signals */
-	//#define ACCELINT_PIN	GPIO_PIN_0
-	//#define ACCELINT_PORT	GPIOB
+	#define ACCELINT_PIN	GPIO_PIN_1
+	#define ACCELINT_PORT	GPIOB
 
 
 /*------------------------*/
@@ -79,14 +79,21 @@
 /*------------------------*/
 
 	#define LED_BLINK_TIME 1000
-	#define DEBOUNCE_VALUE 1000
+	#define DEBOUNCE_VALUE 5000
 
 /*------------------------*/
 /*  Controller Variables  */
 /*------------------------*/
 
-	#define IDLE_TIME (60*5)
-	#define SLEEP_TIME (180*10)
+	#define Kp 				1.00
+	#define Ki 				0.01
+	#define Kd 				0.01
+
+	#define iMax 			100
+	#define iMin 			-100
+
+	#define IDLE_TIME  		(60*5)
+	#define SLEEP_TIME 		(180*10)
 
 	#define SET_POINT_1		500
 	#define SET_POINT_2		800

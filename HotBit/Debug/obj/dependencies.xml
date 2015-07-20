@@ -1,12 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dependencies>
-   <includePath signature="/I..\..\..\..\..\..\..\CoIDE\workspace\HotBit\components\coocox-master\cmsis_core /I..\..\..\..\..\..\..\CoIDE\workspace\HotBit\components\coocox-master\STM32L051xx_CUBELIB\source /I..\..\..\..\..\..\..\CoIDE\workspace\HotBit /I..\..\..\..\..\..\..\CoIDE\workspace\HotBit\components\coocox-master\STM32L051xx_CUBELIB /I..\..\..\..\..\..\..\Documents\GitHub\HotBit /I..\..\..\..\..\..\..\CoIDE\workspace\HotBit\components\coocox-master\cmsis_core\source /I..\..\..\..\..\..\..\Documents\GitHub /I..\..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit /I..\..\..\..\..\..\..\CoIDE\workspace\HotBit\components\coocox-master">
+   <includePath signature="/I..\..\..\..\..\..\..\Documents\GitHub\HotBit\components\coocox-master /I..\..\..\..\..\..\..\Documents\GitHub\HotBit\app /I..\..\..\..\..\..\..\Documents\GitHub\HotBit\components\coocox-master\STM32L051xx_CUBELIB\source /I..\..\..\..\..\..\..\Documents\GitHub\HotBit /I..\..\..\..\..\..\..\Documents\GitHub /I..\..\..\..\..\..\..\Documents\GitHub\HotBit\components\coocox-master\cmsis_core /I..\..\..\..\..\..\..\Documents\GitHub\HotBit\components\coocox-master\cmsis_core\source /I..\..\..\..\..\..\..\Documents\GitHub\HotBit\components\coocox-master\STM32L051xx_CUBELIB">
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx.h" lastModified="14dc53f3adf">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l051xx.h"/>
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_smbus.h" lastModified="14dc53f2801">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
+      </source>
+      <source file="..\..\..\app\prototypes.h" lastModified="14e93c3ea0e">
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_conf.h" lastModified="14dc53f27b7">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_rcc.h"/>
@@ -48,11 +50,6 @@
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_gpio_ex.h"/>
       </source>
-      <source file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\leds.c" lastModified="14d7de23be4">
-         <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
-         <include file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\prototypes.h"/>
-         <include file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\config.h"/>
-      </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.c" lastModified="14dc53f283f">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
       </source>
@@ -68,8 +65,6 @@
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_usart_ex.h" lastModified="14dc53f27f7">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
-      </source>
-      <source file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\prototypes.h" lastModified="14d7de23bfa">
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_cortex.c" lastModified="14dc53f27c1">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
@@ -94,6 +89,11 @@
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_uart.c" lastModified="14dc53f27fb">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
+      </source>
+      <source file="..\..\..\app\leds.c" lastModified="14e6fe84df2">
+         <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
+         <include file="..\..\..\app\prototypes.h"/>
+         <include file="..\..\..\app\config.h"/>
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_crc_ex.h" lastModified="14dc53f279f">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
@@ -125,6 +125,11 @@
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_dma.h" lastModified="14dc53f2876">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
       </source>
+      <source file="..\..\..\app\imu.c" lastModified="14d7de23bd0">
+         <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
+         <include file="..\..\..\app\prototypes.h"/>
+         <include file="..\..\..\app\config.h"/>
+      </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_flash_ramfunc.c" lastModified="14dc53f278a">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
       </source>
@@ -136,11 +141,6 @@
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_dma.c" lastModified="14dc53f284c">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
-      </source>
-      <source file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\main.c" lastModified="14d7de23be6">
-         <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
-         <include file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\prototypes.h"/>
-         <include file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\config.h"/>
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_rcc.h" lastModified="14dc53f27cc">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
@@ -164,11 +164,6 @@
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_tim_ex.h" lastModified="14dc53f2783">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
       </source>
-      <source file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\imu.c" lastModified="14d7de23bd0">
-         <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
-         <include file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\prototypes.h"/>
-         <include file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\config.h"/>
-      </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_smartcard.h" lastModified="14dc53f281c">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_smartcard_ex.h"/>
@@ -181,6 +176,11 @@
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_tim_ex.c" lastModified="14dc53f27b2">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
+      </source>
+      <source file="..\..\..\app\pid.c" lastModified="14e93c35a1e">
+         <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
+         <include file="..\..\..\app\prototypes.h"/>
+         <include file="..\..\..\app\config.h"/>
       </source>
       <source file="..\..\..\components\coocox-master\cmsis_core\source\core_cm0plus.h" lastModified="14dc53f3028">
          <include file="..\..\..\components\coocox-master\cmsis_core\source\core_cmInstr.h"/>
@@ -199,13 +199,18 @@
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_wwdg.h" lastModified="14dc53f2796">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
       </source>
+      <source file="..\..\..\app\main.c" lastModified="14e6f137a44">
+         <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
+         <include file="..\..\..\app\prototypes.h"/>
+         <include file="..\..\..\app\config.h"/>
+      </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_lcd.c" lastModified="14dc53f27c9">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_wwdg.c" lastModified="14dc53f2799">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
       </source>
-      <source file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\stm32l0xx_it.h" lastModified="14d7de23c53">
+      <source file="..\..\..\app\stm32l0xx_it.h" lastModified="14d7de23c53">
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_rng.h" lastModified="14dc53f2788">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
@@ -214,10 +219,15 @@
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_cryp_ex.h"/>
       </source>
-      <source file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\stm32l0xx_it.c" lastModified="14d7de23c3f">
+      <source file="..\..\..\app\stateMachine.c" lastModified="14e93c5c741">
+         <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
+         <include file="..\..\..\app\prototypes.h"/>
+         <include file="..\..\..\app\config.h"/>
+      </source>
+      <source file="..\..\..\app\stm32l0xx_it.c" lastModified="14d7de23c3f">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx.h"/>
-         <include file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\stm32l0xx_it.h"/>
+         <include file="..\..\..\app\stm32l0xx_it.h"/>
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_rng.c" lastModified="14dc53f2777">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
@@ -245,12 +255,8 @@
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_adc.c" lastModified="14dc53f27de">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
       </source>
-      <source file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\stateMachine.c" lastModified="14dc5e340a1">
+      <source file="..\..\..\app\stm32l0xx_hal_msp.c" lastModified="14d7de23c3d">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
-         <include file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\prototypes.h"/>
-         <include file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\config.h"/>
-      </source>
-      <source file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\config.h" lastModified="14dc5e56b6c">
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_pcd.h" lastModified="14dc53f282c">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
@@ -278,9 +284,6 @@
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_i2c.h" lastModified="14dc53f27c3">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_i2c_ex.h"/>
-      </source>
-      <source file="..\..\..\..\..\..\Documents\GitHub\HotBit\HotBit\stm32l0xx_hal_msp.c" lastModified="14d7de23c3d">
-         <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_pwr_ex.h" lastModified="14dc53f2844">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>
@@ -334,6 +337,8 @@
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_tim.c" lastModified="14dc53f27a8">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal.h"/>
+      </source>
+      <source file="..\..\..\app\config.h" lastModified="14e93c35a38">
       </source>
       <source file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_flash_ex.h" lastModified="14dc53f276f">
          <include file="..\..\..\components\coocox-master\STM32L051xx_CUBELIB\source\stm32l0xx_hal_def.h"/>

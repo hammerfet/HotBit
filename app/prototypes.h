@@ -17,5 +17,8 @@ void startIMU(void);
 void stopIMU(void);
 uint8_t checkForMovement(void);
 
+// PID controller related
+uint32_t Controller(uint32_t setpoint, uint32_t adcvalue);
+
 
 #endif

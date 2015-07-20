@@ -146,16 +146,16 @@ void stateMachine(void)
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	if (CurrentState == SLEEP && (HAL_GPIO_ReadPin(TEMPUP_PORT, TEMPUP_PIN) == GPIO_PIN_RESET))
+	if (CurrentState == SLEEP && (HAL_GPIO_ReadPin(TEMPUP_PORT, TEMPUP_PIN) == GPIO_PIN_SET))
 		CurrentState = LastTempState; // This is a wakeup from stop mode call
 
 	else if (CurrentState == IDLE)
 		CurrentState = LastTempState;
 
-	else if (HAL_GPIO_ReadPin(TEMPDN_PORT, TEMPDN_PIN) == GPIO_PIN_RESET && _IS_TEMP_STATE && CurrentState != TEMP1)
+	else if (HAL_GPIO_ReadPin(TEMPDN_PORT, TEMPDN_PIN) == GPIO_PIN_SET && _IS_TEMP_STATE && CurrentState != TEMP1)
 		CurrentState--;
 
-	else if (HAL_GPIO_ReadPin(TEMPUP_PORT, TEMPUP_PIN) == GPIO_PIN_RESET && _IS_TEMP_STATE && CurrentState != TEMP9)
+	else if (HAL_GPIO_ReadPin(TEMPUP_PORT, TEMPUP_PIN) == GPIO_PIN_SET && _IS_TEMP_STATE && CurrentState != TEMP9)
 		CurrentState++;
 
 	int i;
@@ -229,6 +229,8 @@ void startTipTempMeasurement(void)
 
 void basicController(uint32_t setpoint)
 {
+	pwmDriveValue = Controller(setpoint, tipTempRawValue);
+	/*
 	if (tipTempRawValue < setpoint)
 	{
 		pwmDriveValue++;
@@ -239,7 +241,7 @@ void basicController(uint32_t setpoint)
 		if (pwmDriveValue > 0)
 			pwmDriveValue--;
 	}
-
+	 */
 	if (pwmDriveValue > 18000)
 		pwmDriveValue = 18000;
 
