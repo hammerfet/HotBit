@@ -19,14 +19,14 @@ TIM_HandleTypeDef htim2;
 ADC_HandleTypeDef hadc;
 
 // Variables used in this file
-state volatile CurrentState = SLEEP;
-state LastTempState = TEMP1;
-uint8_t readyToRunADC = 0;
-uint32_t ledBlinkCounter = 0;
+static state volatile CurrentState = SLEEP;
+static state LastTempState = TEMP1;
+static uint8_t readyToRunADC = 0;
+static uint32_t ledBlinkCounter = 0;
 
 // Control variables
-uint32_t tipTempRawValue = 0;
-uint32_t pwmDriveValue = 0;
+static uint32_t volatile tipTempRawValue = 0;
+static uint32_t volatile pwmDriveValue = 0;
 
 
 
@@ -70,8 +70,9 @@ void stateMachine(void)
 		case TEMP1:
 			clearLEDs();
 			LastTempState = TEMP1;
-			setLED(LED_1);			
-			basicController(SET_POINT_1);
+			setLED(LED_1);
+			pwmDriveValue = PID_Controller(SET_POINT_1, tipTempRawValue);
+			_SET_PWM(pwmDriveValue);
 			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
@@ -79,7 +80,8 @@ void stateMachine(void)
 			clearLEDs();
 			LastTempState = TEMP2;
 			setLED(LED_2);
-			basicController(SET_POINT_2);
+			pwmDriveValue = PID_Controller(SET_POINT_2, tipTempRawValue);
+			_SET_PWM(pwmDriveValue);
 			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
@@ -87,7 +89,8 @@ void stateMachine(void)
 			clearLEDs();
 			LastTempState = TEMP3;
 			setLED(LED_3);
-			basicController(SET_POINT_3);
+			pwmDriveValue = PID_Controller(SET_POINT_3, tipTempRawValue);
+			_SET_PWM(pwmDriveValue);
 			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
@@ -95,7 +98,8 @@ void stateMachine(void)
 			clearLEDs();
 			LastTempState = TEMP4;
 			setLED(LED_4);
-			basicController(SET_POINT_4);
+			pwmDriveValue = PID_Controller(SET_POINT_4, tipTempRawValue);
+			_SET_PWM(pwmDriveValue);
 			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
@@ -103,7 +107,8 @@ void stateMachine(void)
 			clearLEDs();
 			LastTempState = TEMP5;
 			setLED(LED_5);
-			basicController(SET_POINT_5);
+			pwmDriveValue = PID_Controller(SET_POINT_5, tipTempRawValue);
+			_SET_PWM(pwmDriveValue);
 			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
@@ -111,7 +116,8 @@ void stateMachine(void)
 			clearLEDs();
 			LastTempState = TEMP6;
 			setLED(LED_6);
-			basicController(SET_POINT_6);
+			pwmDriveValue = PID_Controller(SET_POINT_6, tipTempRawValue);
+			_SET_PWM(pwmDriveValue);
 			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
@@ -119,7 +125,8 @@ void stateMachine(void)
 			clearLEDs();
 			LastTempState = TEMP7;
 			setLED(LED_7);
-			basicController(SET_POINT_7);
+			pwmDriveValue = PID_Controller(SET_POINT_7, tipTempRawValue);
+			_SET_PWM(pwmDriveValue);
 			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
@@ -127,7 +134,8 @@ void stateMachine(void)
 			clearLEDs();
 			LastTempState = TEMP8;
 			setLED(LED_8);
-			basicController(SET_POINT_8);
+			pwmDriveValue = PID_Controller(SET_POINT_8, tipTempRawValue);
+			_SET_PWM(pwmDriveValue);
 			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
@@ -135,7 +143,8 @@ void stateMachine(void)
 			clearLEDs();
 			LastTempState = TEMP9;
 			setLED(LED_9);
-			basicController(SET_POINT_9);
+			pwmDriveValue = PID_Controller(SET_POINT_9, tipTempRawValue);
+			_SET_PWM(pwmDriveValue);
 			if (checkForMovement()) _RESET_AUTO_POWER_OFF_TIMER;
 			break;
 
@@ -225,25 +234,4 @@ void startTipTempMeasurement(void)
 
 		HAL_ADC_Stop(&hadc);
 	}
-}
-
-void basicController(uint32_t setpoint)
-{
-	pwmDriveValue = Controller(setpoint, tipTempRawValue);
-	/*
-	if (tipTempRawValue < setpoint)
-	{
-		pwmDriveValue++;
-	}
-
-	if (tipTempRawValue > setpoint)
-	{
-		if (pwmDriveValue > 0)
-			pwmDriveValue--;
-	}
-	 */
-	if (pwmDriveValue > 18000)
-		pwmDriveValue = 18000;
-
-	_SET_PWM(pwmDriveValue);
 }

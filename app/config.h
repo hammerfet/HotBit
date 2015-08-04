@@ -85,15 +85,16 @@
 /*  Controller Variables  */
 /*------------------------*/
 
-	#define Kp 				1.00
-	#define Ki 				0.01
-	#define Kd 				0.01
+	#define Kp 				120.00
+	#define Ki 				0.00
+	#define Kd 				30.0
 
-	#define iMax 			100
-	#define iMin 			-100
+	#define iMax 			20000.0
+	#define iMin 			-20000.0
+	#define MAX_SAFE_PWM	20000
 
-	#define IDLE_TIME  		(60*5)
-	#define SLEEP_TIME 		(180*10)
+	#define IDLE_TIME  		(180*10)
+	#define SLEEP_TIME 		(300*10)
 
 	#define SET_POINT_1		500
 	#define SET_POINT_2		800

@@ -6,7 +6,6 @@ void stateMachine(void);
 
 // Temp regulation related
 void startTipTempMeasurement(void);
-void basicController(uint32_t setpoint);
 
 // LED Related
 void setLED(uint8_t LED);
@@ -18,7 +17,7 @@ void stopIMU(void);
 uint8_t checkForMovement(void);
 
 // PID controller related
-uint32_t Controller(uint32_t setpoint, uint32_t adcvalue);
+uint32_t PID_Controller(uint32_t setpoint, uint32_t sample);
 
 
 #endif

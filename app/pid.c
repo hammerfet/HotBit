@@ -2,34 +2,40 @@
 #include "prototypes.h"
 #include "config.h"
 
-static float D_temp = 0;
-static float I_temp = 0;
 
-
-static float error;
 static float P;
 static float I;
 static float D;
-static float output;
+static float error;
+static float result;
+static float last_sample;
 
-uint32_t Controller(uint32_t setpoint, uint32_t adcvalue)
+
+uint32_t PID_Controller(uint32_t setpoint, uint32_t sample)
 {
+	error = (float) setpoint - (float) sample;
 
-	error = setpoint - adcvalue;
+	P =  error * Kp;
 
-	P = Kp * error;
+	I += error * Ki;
 
-	I_temp += error;
+	D = (last_sample - sample) * Kd;
 
-	if (I_temp > iMax) I_temp = iMax;
-	if (I_temp < iMin) I_temp = iMin;
+	last_sample = sample;
 
-	I = Ki * I_temp;
+	if (I > iMax)		I = iMax;
 
-	D = Kd * (D_temp - error);
-	D_temp = error;
+	else if (I < iMin)	I = iMin;
 
-	output = output - (P + I + D);
+	result = P + I + D;
 
-	return (uint32_t) output;
+
+	if (result > MAX_SAFE_PWM)
+		return MAX_SAFE_PWM;
+
+	else if (result < 0)
+		return 0;
+
+	else
+		return (uint32_t) result;
 }
